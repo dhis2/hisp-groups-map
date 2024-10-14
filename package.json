@@ -22,7 +22,7 @@
     "unfetch": "^4.1.0"
   },
   "devDependencies": {
-    "gh-pages": "^2.2.0"
+    "gh-pages": "^5.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
