@@ -29,6 +29,7 @@ const List = ({ category, data, show, focus, onClick }) => {
       return legend.map(({ code, name, color }) => ({
         name,
         color,
+        /*
         items: Object.values(countries)
           .filter((country) => {
             const letters = country[lastYear];
@@ -40,10 +41,12 @@ const List = ({ category, data, show, focus, onClick }) => {
           ? Object.keys(countries).filter((id) => focus[id] && focus[id][code])
           : []
         ).map((id) => countries[id].name),
+        */
       }));
     }
   }, [legend, data, focus]);
 
+  /*
   const onResize = useCallback(() => {
     if (lists && container.current) {
       const { clientHeight } = container.current;
@@ -61,6 +64,7 @@ const List = ({ category, data, show, focus, onClick }) => {
     }
     return () => window.removeEventListener("resize", onResize);
   }, [show, onResize]);
+  */
 
   return (
     <div

@@ -1,9 +1,9 @@
 import React, { createContext, useState, useEffect } from "react";
-import { getData, getFocusData } from "../utils/data";
+import { getCountryData, getHispGroupData } from "../utils/data";
 
 export const CountriesContext = createContext();
 export const DataContext = createContext();
-export const FocusContext = createContext();
+export const HispGroupContext = createContext();
 
 const DataProvider = ({ children }) => {
   const [countries, setCountries] = useState();
@@ -16,13 +16,13 @@ const DataProvider = ({ children }) => {
       .then(setCountries)
       .catch((error) => console.log(error));
 
-    getData().then(setData);
+    getCountryData().then(setData);
   }, []);
 
   // Load country focus after main data is loaded
   useEffect(() => {
     if (data) {
-      getFocusData().then(setFocus);
+      getHispGroupData().then(setFocus);
     }
   }, [data]);
 
@@ -30,9 +30,9 @@ const DataProvider = ({ children }) => {
     <>
       <CountriesContext.Provider value={countries}>
         <DataContext.Provider value={data}>
-          <FocusContext.Provider value={focus}>
+          <HispGroupContext.Provider value={focus}>
             {children}
-          </FocusContext.Provider>
+          </HispGroupContext.Provider>
         </DataContext.Provider>
       </CountriesContext.Provider>
     </>

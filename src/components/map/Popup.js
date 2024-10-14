@@ -4,8 +4,7 @@ import { popup } from "leaflet";
 import PopupExplore from "./PopupExplore";
 import PopupFocus from "./PopupFocus";
 import { MapContext } from "./MapProvider";
-import { DataContext, FocusContext } from "../DataProvider";
-import { legacyCategories } from "../../utils/data";
+import { DataContext, HispGroupContext } from "../DataProvider";
 
 const container = document.createElement("div");
 
@@ -19,10 +18,8 @@ const Popup = ({
   onClose,
 }) => {
   const map = useContext(MapContext);
-  const dataContext = useContext(DataContext);
-  const data =
-    dataContext?.[legacyCategories.includes(category) ? "legacy" : "current"];
-  const focus = useContext(FocusContext);
+  const data = useContext(DataContext);
+  const focus = useContext(HispGroupContext);
 
   const { CODE, NAME } = country;
 

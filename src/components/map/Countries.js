@@ -8,19 +8,16 @@ import React, {
 import { geoJSON } from "leaflet";
 import Popup from "./Popup";
 import { MapContext } from "./MapProvider";
-import CountryFocus from "./CountryFocus";
+import HispGroups from "./HispGroups";
 import { CountriesContext, DataContext } from "../DataProvider";
-import { categories, legacyCategories } from "../../utils/data";
+import { categories } from "../../utils/data";
 import { getIconPosition } from "../../utils/map";
 
 const noDataColor = "#fff";
 
 const Countries = ({ category, selected, setCountry, setCategory }) => {
   const countries = useContext(CountriesContext);
-  const dataContext = useContext(DataContext);
-  const data =
-    dataContext?.[legacyCategories.includes(category) ? "legacy" : "current"];
-
+  const data = useContext(DataContext);
   const map = useContext(MapContext);
   const [layer, setLayer] = useState();
   const [feature, setFeature] = useState();
@@ -56,8 +53,6 @@ const Countries = ({ category, selected, setCountry, setCategory }) => {
 
   useEffect(() => {
     if (layer && legend && data) {
-      const { countries, lastYear } = data;
-
       layer.eachLayer((item) =>
         item.setStyle({
           fillColor: noDataColor,
@@ -67,13 +62,20 @@ const Countries = ({ category, selected, setCountry, setCategory }) => {
       layer.eachLayer((item) => {
         const code = item.feature.properties.CODE;
 
-        if (code && countries[code] && countries[code][lastYear]) {
-          const country = countries[code];
-          const letters = country[lastYear];
+        if (code && data[code]) {
+          const country = data[code];
+          // const letters = country[lastYear];
 
           // Use name from Google Spreadsheet
           item.feature.properties.NAME = country.name;
 
+          item.setStyle({
+            fillColor: "red",
+          });
+
+          // console.log("country", country);
+
+          /*
           legend.forEach(({ code, color }) => {
             if (letters.indexOf(code) !== -1 || code === "_") {
               item.setStyle({
@@ -81,6 +83,7 @@ const Countries = ({ category, selected, setCountry, setCategory }) => {
               });
             }
           });
+          */
         }
       });
     }
@@ -112,7 +115,7 @@ const Countries = ({ category, selected, setCountry, setCategory }) => {
 
   return (
     <>
-      <CountryFocus layer={layer} legend={legend} onClick={onClick} />
+      <HispGroups layer={layer} legend={legend} onClick={onClick} />
       {feature ? (
         <Popup
           category={category}
