@@ -1,0 +1,50 @@
+{
+  "name": "hisp-groups-map",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@babel/polyfill": "^7.10.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@turf/area": "^6.0.1",
+    "core-js": "^3.6.5",
+    "fetch-jsonp": "^1.1.3",
+    "highcharts": "^8.0.4",
+    "leaflet": "^1.6.0",
+    "polylabel": "^1.0.5",
+    "proj4leaflet": "^1.0.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-full-screen": "^0.2.4",
+    "react-scripts": "3.4.0",
+    "react-sidebar": "^3.0.2",
+    "unfetch": "^4.1.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^2.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

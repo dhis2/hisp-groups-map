@@ -1,0 +1,36 @@
+.Sidebar {
+  width: 250px;
+  border: 1px solid #eee;
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: none !important;
+  z-index: 1020 !important;
+  background: #fff;
+}
+
+.Sidebar-header {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+}
+
+.Sidebar-header h1 {
+  margin: 0;
+  font-size: 18px;
+  color: #151516;
+  padding-bottom: 10px;
+}
+
+.Sidebar-header p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: #4a5768;
+  padding-bottom: 10px;
+}
+
+.Sidebar h2 {
+  margin: 0;
+  font-size: 16px;
+  color: #151516;
+  padding: 4px 0 0;
+}

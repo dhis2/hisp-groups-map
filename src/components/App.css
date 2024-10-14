@@ -1,0 +1,49 @@
+*:focus {
+  outline: none;
+}
+
+body {
+  margin: 0;
+  margin: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  background: #fff;
+  box-sizing: border-box;
+  border: 0.1px solid #eee;
+}
+
+.App-main {
+  top: 1px !important;
+  bottom: 1px !important;
+  right: 1px !important;
+  transition: none !important;
+}
+
+.App-overlay {
+  z-index: 1010 !important;
+}
+
+.App-mask {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 1010;
+}
+
+/* Scrollbar width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Scrollbar handle */
+::-webkit-scrollbar-thumb {
+  background: #cbcdcf;
+  border-radius: 3px;
+}

@@ -1,0 +1,11 @@
+.Chart {
+  height: 100%;
+}
+
+.Chart-hide {
+  display: none;
+}
+
+.highcharts-credits {
+  display: none;
+}
