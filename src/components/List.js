@@ -11,11 +11,9 @@ import "./List.css";
 const marginTop = 70;
 const marginBottom = 20;
 
-const List = ({ region, data, show = true, onClick }) => {
+const List = ({ region, data, onClick }) => {
   const container = useRef();
   const [cols, setCols] = useState(null);
-
-  // console.log("List", region, data, show, focus);
 
   const legend = useMemo(
     () => regions.find((c) => c.id === region).legend,
@@ -24,8 +22,6 @@ const List = ({ region, data, show = true, onClick }) => {
 
   const lists = useMemo(() => {
     if (legend && data) {
-      const { countries, groups, hubs } = data;
-
       setCols(null);
 
       return legend.map(({ type, name, color, symbol }) => ({

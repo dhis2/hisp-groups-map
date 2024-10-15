@@ -8,7 +8,7 @@ const Region = ({ id, title, legend, selected, onClick }) => (
     className={`Region${selected ? " Region-selected" : ""}`}
   >
     <h3>{title}</h3>
-    {selected && <Legend items={legend} />}
+    {selected && <Legend region={id} items={legend} />}
   </div>
 );
 

@@ -1,31 +1,36 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext } from "react";
 import { DataContext } from "./DataProvider";
 import "./Legend.css";
 
-const Legend = ({ items }) => {
-  const dataContext = useContext(DataContext);
-  const data = dataContext?.current;
+const Legend = ({ region, items }) => {
+  const data = useContext(DataContext);
 
-  const count = useMemo(() => (data ? data.year[data.lastYear] : {}), [data]);
-
-  // {count[code] ? ` (${count[code]})` : ""}
   return (
     <div className="Legend">
-      {items.map(({ name, legendName, color, symbol }) => (
-        <div key={name}>
-          {color ? (
-            <span className="color" style={{ backgroundColor: color }}></span>
-          ) : symbol ? (
-            <span
-              className="symbol"
-              style={{ backgroundImage: `url("${symbol}.png")` }}
-            ></span>
-          ) : (
-            <span></span>
-          )}{" "}
-          {legendName || name}
-        </div>
-      ))}
+      {items.map(({ type, name, legendName, color, symbol }) => {
+        const count = data?.[type].filter(
+          (country) =>
+            region === "all" ||
+            country.region.toLowerCase() === region.replace("-", " ")
+        ).length;
+
+        return (
+          <div key={name}>
+            {color ? (
+              <span className="color" style={{ backgroundColor: color }}></span>
+            ) : symbol ? (
+              <span
+                className="symbol"
+                style={{ backgroundImage: `url("${symbol}.png")` }}
+              ></span>
+            ) : (
+              <span></span>
+            )}{" "}
+            {legendName || name}
+            {count > 1 && <> ({count})</>}
+          </div>
+        );
+      })}
     </div>
   );
 };
