@@ -1,13 +1,16 @@
 import React from "react";
 import SidebarToggle from "./SidebarToggle";
-import CategoryGroup from "./CategoryGroup";
+import RegionGroup from "./RegionGroup";
 
-const Sidebar = ({ category, isDocked, onClose, onSelect }) => (
+/*
+<RegionGroup group="region" onClick={onSelect} region={region} />
+<RegionGroup group="other" onClick={onSelect} region={region} />
+*/
+
+const Sidebar = ({ region, isDocked, onClose, onSelect }) => (
   <>
     {!isDocked && <SidebarToggle type="close" onClick={onClose} />}
-    <CategoryGroup group="explore" onClick={onSelect} category={category} />
-    <CategoryGroup group="region" onClick={onSelect} category={category} />
-    <CategoryGroup group="other" onClick={onSelect} category={category} />
+    <RegionGroup group="explore" onClick={onSelect} region={region} />
   </>
 );
 

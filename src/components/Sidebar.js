@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import ReactSidebar from "react-sidebar";
 import SidebarContent from "./SidebarContent";
 import SidebarToggle from "./SidebarToggle";
-import { sidebarCategories } from "../utils/data";
+import { sidebarregions } from "../utils/data";
 import "./Sidebar.css";
 
-const App = ({ category, onSelect, children }) => {
+const App = ({ region, onSelect, children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [sidebarDocked, setSidebarDocked] = useState(false);
 
@@ -15,7 +15,7 @@ const App = ({ category, onSelect, children }) => {
     setSidebarDocked(mql.matches);
   }, []);
 
-  if (!sidebarCategories.includes(category)) {
+  if (!sidebarregions.includes(region)) {
     return children;
   }
 
@@ -23,7 +23,7 @@ const App = ({ category, onSelect, children }) => {
     <ReactSidebar
       sidebar={
         <SidebarContent
-          category={category}
+          region={region}
           onSelect={onSelect}
           isDocked={sidebarDocked}
           onClose={() => setSidebarOpen(false)}

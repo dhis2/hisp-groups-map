@@ -1,17 +1,23 @@
 import { useContext, useEffect } from "react";
 import { geoJSON, marker, icon } from "leaflet";
 import { MapContext } from "./MapProvider";
-import { HispGroupContext } from "../DataProvider";
-import { getIconPosition } from "../../utils/map";
+import { DataContext } from "../DataProvider";
+// import { getIconPosition } from "../../utils/map";
 
-const HispGroups = ({ layer, legend, onClick }) => {
+const HispGroups = ({ region, onClick }) => {
   const map = useContext(MapContext);
-  const groups = useContext(HispGroupContext);
+  const data = useContext(DataContext);
 
   useEffect(() => {
-    if (map && groups) {
-      const features = groups
-        .filter((group) => group.latitude && group.longitude)
+    if (map && data) {
+      const features = data.groups
+        .filter(
+          (country) =>
+            (region === "all" ||
+              country.region.toLowerCase() === region.replace("-", " ")) &&
+            country.latitude &&
+            country.longitude
+        )
         .map((group) => ({
           type: "Feature",
           properties: group,
@@ -42,7 +48,7 @@ const HispGroups = ({ layer, legend, onClick }) => {
         };
       }
     }
-  }, [map, groups, onClick]);
+  }, [map, data, region, onClick]);
 
   return null;
 };

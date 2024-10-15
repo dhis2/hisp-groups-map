@@ -16,9 +16,20 @@
   display: inline-block;
   height: 14px;
   width: 14px;
-  border-radius: 50%;
-  border: 1px solid #777;
   vertical-align: bottom;
   margin-right: 4px;
-  background-color: yellow;
+}
+
+.Legend .color {
+  border: 1px solid #777;
+  border-radius: 50%;
+}
+
+.Legend .symbol {
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+  left: -24px;
+  top: 0;
 }

@@ -4,31 +4,33 @@ import { popup } from "leaflet";
 import PopupExplore from "./PopupExplore";
 import PopupFocus from "./PopupFocus";
 import { MapContext } from "./MapProvider";
-import { DataContext, HispGroupContext } from "../DataProvider";
+import { DataContext } from "../DataProvider";
 
 const container = document.createElement("div");
 
 const Popup = ({
   latlng,
-  category,
+  region,
   country,
   legend,
   setCountry,
-  setCategory,
+  setRegion,
   onClose,
 }) => {
   const map = useContext(MapContext);
   const data = useContext(DataContext);
-  const focus = useContext(HispGroupContext);
+
+  // console.log("Popup", country, legend);
 
   const { CODE, NAME } = country;
 
-  const countryData = data?.countries[CODE];
-  const focusItem = legend.find((l) => focus?.[CODE]?.[l.code]);
-  const countryFocus = focus[CODE]?.[focusItem?.code];
+  const countryData = data?.[CODE];
+  // const focusItem = legend.find((l) => focus?.[CODE]?.[l.code]);
+  // const countryFocus = focus[CODE]?.[focusItem?.code];
 
   const isExploreMode = (legend) => legend[0].code === "_";
 
+  /*
   const legendItems =
     countryData &&
     legend
@@ -39,6 +41,7 @@ const Popup = ({
         ),
       }))
       .filter((i) => i.year);
+  */
 
   const onPopupOpen = useCallback(
     () => document.body.classList.add("popupopen"),
@@ -63,7 +66,7 @@ const Popup = ({
       .setLatLng(latlng)
       .setContent(container)
       .openOn(map);
-  }, [map, latlng, category]);
+  }, [map, latlng, region]);
 
   useEffect(() => {
     if (map) {
@@ -79,6 +82,7 @@ const Popup = ({
     };
   }, [map, onPopupOpen, onPopupClose]);
 
+  /*
   return createPortal(
     <>
       <h2>{NAME}</h2>
@@ -100,10 +104,18 @@ const Popup = ({
           letters={countryData[data.lastYear]}
           data={data}
           setCountry={setCountry}
-          setCategory={setCategory}
+          setRegion={setRegion}
         />
       ) : null}
       {countryFocus ? <PopupFocus data={countryFocus} /> : null}
+    </>,
+    container
+  );
+  */
+
+  return createPortal(
+    <>
+      <h2>{NAME}</h2>
     </>,
     container
   );

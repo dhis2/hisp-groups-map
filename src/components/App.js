@@ -7,46 +7,46 @@ import MapProvider from "./map/MapProvider";
 import Graticule from "./map/Graticule";
 import Countries from "./map/Countries";
 import ChartList from "./ChartList";
-import { categories } from "../utils/data";
+import { regions } from "../utils/data";
 import "./App.css";
 
-const getInitialCategory = () => {
+const getInitialRegion = () => {
   const { hash } = window.location;
 
   if (hash) {
     const cat = hash.substr(1);
 
-    if (categories.find((c) => c.id === cat)) {
+    if (regions.find((c) => c.id === cat)) {
       return cat;
     }
   }
 
-  return "all"; // Default category
+  return "all"; // Default region
 };
 
 const App = () => {
-  const [category, setCategory] = useState(getInitialCategory());
+  const [region, setRegion] = useState(getInitialRegion());
   const [country, setCountry] = useState();
 
   useEffect(() => {
-    window.location.hash = `#${category}`;
-  }, [category]);
+    window.location.hash = `#${region}`;
+  }, [region]);
 
   return (
     <Fullscreen>
       <DataProvider>
         <Loader />
-        <Sidebar category={category} onSelect={setCategory}>
+        <Sidebar region={region} onSelect={setRegion}>
           <MapProvider>
             <Graticule />
             <Countries
-              category={category}
+              region={region}
               selected={country}
               setCountry={setCountry}
-              setCategory={setCategory}
+              setRegion={setRegion}
             />
           </MapProvider>
-          <ChartList category={category} onClick={setCountry} />
+          <ChartList region={region} onClick={setCountry} />
         </Sidebar>
       </DataProvider>
     </Fullscreen>

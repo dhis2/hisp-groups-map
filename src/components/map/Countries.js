@@ -10,12 +10,12 @@ import Popup from "./Popup";
 import { MapContext } from "./MapProvider";
 import HispGroups from "./HispGroups";
 import { CountriesContext, DataContext } from "../DataProvider";
-import { categories } from "../../utils/data";
+import { regions } from "../../utils/data";
 import { getIconPosition } from "../../utils/map";
 
 const noDataColor = "#fff";
 
-const Countries = ({ category, selected, setCountry, setCategory }) => {
+const Countries = ({ region, selected, setCountry, setRegion }) => {
   const countries = useContext(CountriesContext);
   const data = useContext(DataContext);
   const map = useContext(MapContext);
@@ -24,8 +24,8 @@ const Countries = ({ category, selected, setCountry, setCategory }) => {
   const [latlng, setLatlng] = useState();
 
   const legend = useMemo(
-    () => categories.find((c) => c.id === category).legend,
-    [category]
+    () => regions.find((c) => c.id === region).legend[0],
+    [region]
   );
 
   const onClick = useCallback(
@@ -52,42 +52,28 @@ const Countries = ({ category, selected, setCountry, setCategory }) => {
   }, [map, countries]);
 
   useEffect(() => {
-    if (layer && legend && data) {
-      layer.eachLayer((item) =>
-        item.setStyle({
-          fillColor: noDataColor,
-        })
-      );
+    if (layer && region && legend && data) {
+      const { countries } = data;
 
       layer.eachLayer((item) => {
         const code = item.feature.properties.CODE;
+        const country = countries.find((c) => c.code === code);
 
-        if (code && data[code]) {
-          const country = data[code];
-          // const letters = country[lastYear];
-
+        if (country) {
           // Use name from Google Spreadsheet
           item.feature.properties.NAME = country.name;
 
           item.setStyle({
-            fillColor: "red",
+            fillColor:
+              region === "all" ||
+              country.region.toLowerCase() === region.replace("-", " ")
+                ? legend.color
+                : noDataColor,
           });
-
-          // console.log("country", country);
-
-          /*
-          legend.forEach(({ code, color }) => {
-            if (letters.indexOf(code) !== -1 || code === "_") {
-              item.setStyle({
-                fillColor: color,
-              });
-            }
-          });
-          */
         }
       });
     }
-  }, [layer, legend, data]);
+  }, [layer, region, legend, data]);
 
   useEffect(() => {
     if (layer) {
@@ -115,15 +101,20 @@ const Countries = ({ category, selected, setCountry, setCategory }) => {
 
   return (
     <>
-      <HispGroups layer={layer} legend={legend} onClick={onClick} />
+      <HispGroups
+        region={region}
+        layer={layer}
+        legend={legend}
+        onClick={onClick}
+      />
       {feature ? (
         <Popup
-          category={category}
+          region={region}
           country={feature}
           latlng={latlng}
           legend={legend}
           setCountry={setCountry}
-          setCategory={setCategory}
+          setRegion={setRegion}
           onClose={() => setFeature()}
         />
       ) : null}

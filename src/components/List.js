@@ -5,48 +5,45 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
-import { categories } from "../utils/data";
+import { regions } from "../utils/data";
 import "./List.css";
 
 const marginTop = 70;
 const marginBottom = 20;
 
-const List = ({ category, data, show, focus, onClick }) => {
+const List = ({ region, data, show = true, onClick }) => {
   const container = useRef();
   const [cols, setCols] = useState(null);
 
+  // console.log("List", region, data, show, focus);
+
   const legend = useMemo(
-    () => categories.find((c) => c.id === category).legend,
-    [category]
+    () => regions.find((c) => c.id === region).legend,
+    [region]
   );
 
   const lists = useMemo(() => {
     if (legend && data) {
-      const { countries, lastYear } = data;
+      const { countries, groups, hubs } = data;
 
       setCols(null);
 
-      return legend.map(({ code, name, color }) => ({
+      return legend.map(({ type, name, color, symbol }) => ({
         name,
         color,
-        /*
-        items: Object.values(countries)
-          .filter((country) => {
-            const letters = country[lastYear];
-            return letters && (code === "_" || letters.indexOf(code) !== -1);
-          }, [])
+        symbol,
+        items: data[type]
+          .filter(
+            (country) =>
+              region === "all" ||
+              country.region.toLowerCase() === region.replace("-", " ")
+          )
           .map((c) => c.name)
           .sort(),
-        focus: (focus
-          ? Object.keys(countries).filter((id) => focus[id] && focus[id][code])
-          : []
-        ).map((id) => countries[id].name),
-        */
       }));
     }
-  }, [legend, data, focus]);
+  }, [legend, data, region]);
 
-  /*
   const onResize = useCallback(() => {
     if (lists && container.current) {
       const { clientHeight } = container.current;
@@ -58,24 +55,17 @@ const List = ({ category, data, show, focus, onClick }) => {
   }, [container, lists]);
 
   useEffect(() => {
-    if (show) {
-      window.addEventListener("resize", onResize);
-      onResize();
-    }
+    window.addEventListener("resize", onResize);
+    onResize();
     return () => window.removeEventListener("resize", onResize);
-  }, [show, onResize]);
-  */
+  }, [onResize]);
 
   return (
-    <div
-      id="list"
-      ref={container}
-      className={`List List-${show ? "show" : "hide"}`}
-    >
+    <div id="list" ref={container} className="List List-show">
       <div className="container">
         {cols &&
           lists &&
-          lists.map(({ name, color, items, focus }, index) => {
+          lists.map(({ name, color, symbol, items }, index) => {
             const numCols = cols[index];
 
             return (
@@ -88,8 +78,19 @@ const List = ({ category, data, show, focus, onClick }) => {
                 }}
               >
                 <h2>
-                  <span style={{ backgroundColor: color }}></span>
-                  {name}: {items.length}
+                  {color ? (
+                    <span
+                      className="color"
+                      style={{ backgroundColor: color }}
+                    ></span>
+                  ) : symbol ? (
+                    <span
+                      className="symbol"
+                      style={{ backgroundImage: `url("${symbol}.png")` }}
+                    ></span>
+                  ) : null}
+                  {name}
+                  {items.length > 1 ? <> ({items.length})</> : null}
                 </h2>
                 <ul
                   style={{
@@ -99,11 +100,6 @@ const List = ({ category, data, show, focus, onClick }) => {
                   {items.map((name) => (
                     <li key={name} onClick={() => onClick(name)}>
                       {name}
-                      {focus.includes(name) ? (
-                        <img src="icon-info-48.png" alt="More information" />
-                      ) : (
-                        ""
-                      )}
                     </li>
                   ))}
                 </ul>

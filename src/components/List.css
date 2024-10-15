@@ -29,11 +29,21 @@
   display: inline-block;
   height: 12px;
   width: 12px;
-  border-radius: 50%;
-  border: 1px solid #777;
   vertical-align: baseline;
   margin-right: 8px;
   margin-bottom: -2px;
+}
+
+.List .color {
+  border-radius: 50%;
+  border: 1px solid #777;
+}
+
+.List .symbol {
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 16px;
+  height: 16px;
 }
 
 .List h2 {

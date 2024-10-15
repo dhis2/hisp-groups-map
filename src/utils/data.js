@@ -1,94 +1,97 @@
 import fetchJsonp from "fetch-jsonp";
 
-// Colors: https://sashamaps.net/docs/resources/20-colors/
-
-export const categories = [
+export const regions = [
   {
     id: "all",
     group: "explore",
     title: "Where does HISP work?",
     legend: [
-      { code: "_", name: "All countries", color: "#0080d4" },
-      { code: "n", name: "All HISP groups", color: "#ffe119" },
+      { name: "All countries", type: "countries", color: "#dd898b" },
+      { name: "All HISP groups", type: "groups", symbol: "map-pin" },
     ],
-    hasChart: false,
   },
   {
     id: "africa",
     group: "region",
     title: "Africa",
     legend: [
-      { code: "s", name: "National", color: "#238443" },
-      { code: "p", name: "Subnational", color: "#d9f0a3" },
+      { name: "Countries supported", type: "countries", color: "#999966" },
+      { name: "HISP groups", type: "groups", symbol: "map-pin" },
+      { name: "HISP hub", legendName: "HISP Africa hub", type: "hubs" },
     ],
-    hasChart: true,
-  },
-  {
-    id: "america",
-    group: "region",
-    title: "America",
-    legend: [
-      { code: "w", name: "Systems using climate data", color: "#008080" },
-    ],
-    hasChart: false,
   },
   {
     id: "asia",
     group: "region",
     title: "Asia",
-    legend: [{ code: "l", name: "DHIS2 for Logistics", color: "#808000" }],
-    hasChart: false,
+    legend: [
+      { name: "Countries supported", type: "countries", color: "#edc44c" },
+      { name: "HISP groups", type: "groups", symbol: "map-pin" },
+      { name: "HISP hub", legendName: "HISP Asia hub", type: "hubs" },
+    ],
   },
   {
     id: "europe",
     group: "region",
     title: "Europe",
-    legend: [{ code: "t", name: "Tracker", color: "#e34a33" }],
-    hasChart: true,
+    legend: [
+      { name: "Countries supported", type: "countries", color: "#66ffcc" },
+      { name: "HISP groups", type: "groups", symbol: "map-pin" },
+    ],
+  },
+  {
+    id: "americas",
+    group: "region",
+    title: "Americas",
+    legend: [
+      { name: "Countries supported", type: "countries", color: "#975ea7" },
+      { name: "HISP groups", type: "groups", symbol: "map-pin" },
+    ],
+  },
+  {
+    id: "middle-east",
+    group: "region",
+    title: "Middle East",
+    legend: [
+      { name: "Countries supported", type: "countries", color: "#f79868" },
+      { name: "HISP groups", type: "groups", symbol: "map-pin" },
+    ],
   },
 ];
 
-export const categoryGroups = {
+export const regionGroups = {
   explore: "Explore the map",
   region: "View by region",
 };
 
-export const sidebarCategories = categories.map((c) => c.id);
+export const sidebarregions = regions.map((c) => c.id);
 
 const parseData = ({ values }) => {
   const cols = values[0];
-  const idx = cols.indexOf("Code");
+  const codex = cols.indexOf("Code");
   const namex = cols.indexOf("Name");
   const regionx = cols.indexOf("Region");
   const groupx = cols.indexOf("Has HISP Group");
   const hubx = cols.indexOf("Has HISP Hub");
   const supportedx = cols.indexOf("Supported by");
   const rows = values.slice(1);
-  const countries = {};
-  let skip = false;
 
-  rows.forEach((row) => {
-    const id = row[idx];
+  const countries = rows.map((row) => {
+    const code = row[codex];
     const name = row[namex];
     const region = row[regionx];
     const group = row[groupx] || null;
     const hub = row[hubx] || null;
     const supportedBy = row[supportedx] || null;
 
-    // Loop until first empty id
-    if (!id) {
-      skip = true;
-    }
-
-    if (id && !skip) {
-      countries[id] = {
-        name,
-        region,
-        group,
-        hub,
-        supportedBy,
-      };
-    }
+    return {
+      code,
+      name,
+      region,
+      group,
+      hub,
+      supportedBy,
+    };
   });
 
   return countries;
@@ -98,9 +101,9 @@ const parseHispGroupData = ({ values }) => {
   const cols = values[0];
   const rows = values.slice(1);
   const groupx = cols.indexOf("HISP Group");
+  const regionx = cols.indexOf("Region");
   const lngx = cols.indexOf("Longitude");
   const latx = cols.indexOf("Latitude");
-  const letterx = cols.indexOf("Letter");
   const titlex = cols.indexOf("Title");
   const bodyx = cols.indexOf("Body");
   const imageurlx = cols.indexOf("Image url");
@@ -111,6 +114,7 @@ const parseHispGroupData = ({ values }) => {
 
   const groups = rows.map((row) => {
     const name = row[groupx];
+    const region = row[regionx];
     const title = row[titlex];
     const body = row[bodyx];
     const imageurl = row[imageurlx];
@@ -122,6 +126,7 @@ const parseHispGroupData = ({ values }) => {
 
     return {
       name,
+      region,
       longitude,
       latitude,
     };
@@ -130,13 +135,31 @@ const parseHispGroupData = ({ values }) => {
   return groups;
 };
 
+const parseHispHubData = ({ values }) => {
+  return values.map((row) => {
+    const name = row[0];
+    const region = row[1];
+    const longitude = row[2] ? Number(row[2]) : null;
+    const latitude = row[3] ? Number(row[3]) : null;
+
+    return {
+      name,
+      region,
+      longitude,
+      latitude,
+    };
+  });
+};
+
 const fetchData = (sheet) =>
   fetchJsonp(
     `https://sheets.googleapis.com/v4/spreadsheets/1VzyIyWnIz3aRaak5SMBlBt0xxNyqIiiNnmrx8d8d1kQ/values/${sheet}?key=AIzaSyDWyCSemDgAxocSL7j9Dy4mi93xTTcPEek`,
     { jsonpCallback: "callback" }
   ).then((response) => response.json());
 
-export const getCountryData = () => fetchData("Country list").then(parseData);
-
-export const getHispGroupData = () =>
-  fetchData("HISP group list").then(parseHispGroupData);
+export const getData = () =>
+  Promise.all([
+    fetchData("Countries").then(parseData),
+    fetchData("HISP groups").then(parseHispGroupData),
+    fetchData("HISP hubs").then(parseHispHubData),
+  ]).then(([countries, groups, hubs]) => ({ countries, groups, hubs }));
