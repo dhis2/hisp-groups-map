@@ -1,8 +1,6 @@
 import React, { useContext, useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { popup } from "leaflet";
-import PopupExplore from "./PopupExplore";
-import PopupFocus from "./PopupFocus";
 import { MapContext } from "./MapProvider";
 import { DataContext } from "../DataProvider";
 
@@ -11,7 +9,7 @@ const container = document.createElement("div");
 const Popup = ({
   latlng,
   region,
-  country,
+  feature,
   legend,
   setCountry,
   setRegion,
@@ -20,11 +18,11 @@ const Popup = ({
   const map = useContext(MapContext);
   const data = useContext(DataContext);
 
-  // console.log("Popup", country, legend);
+  // console.log("Popup", feature);
 
-  const { CODE, NAME } = country;
+  const { code, name } = feature;
 
-  const countryData = data?.[CODE];
+  const countryData = data?.[code];
   // const focusItem = legend.find((l) => focus?.[CODE]?.[l.code]);
   // const countryFocus = focus[CODE]?.[focusItem?.code];
 
@@ -58,15 +56,19 @@ const Popup = ({
     const { clientWidth, clientHeight } = map.getContainer();
     const maxWidth = clientWidth < 400 ? clientWidth - 100 : 300;
     const maxHeight = clientHeight - 100;
+    const offset = [0, feature.code ? 8 : -10];
 
-    popup({
-      maxWidth,
-      maxHeight,
-    })
-      .setLatLng(latlng)
-      .setContent(container)
-      .openOn(map);
-  }, [map, latlng, region]);
+    if (latlng[0] || latlng.lat) {
+      popup({
+        maxWidth,
+        maxHeight,
+        offset,
+      })
+        .setLatLng(latlng)
+        .setContent(container)
+        .openOn(map);
+    }
+  }, [map, latlng, feature]);
 
   useEffect(() => {
     if (map) {
@@ -85,7 +87,7 @@ const Popup = ({
   /*
   return createPortal(
     <>
-      <h2>{NAME}</h2>
+      <h2>{name}</h2>
       {legendItems?.map(({ code, name, year }) => (
         <div key={code}>
           {name === "National" ? (
@@ -115,7 +117,7 @@ const Popup = ({
 
   return createPortal(
     <>
-      <h2>{NAME}</h2>
+      <h2>{name}</h2>
     </>,
     container
   );

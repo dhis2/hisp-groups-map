@@ -6,7 +6,7 @@ import Sidebar from "./Sidebar";
 import MapProvider from "./map/MapProvider";
 import Graticule from "./map/Graticule";
 import Countries from "./map/Countries";
-import ChartList from "./ChartList";
+import List from "./List";
 import { regions } from "../utils/data";
 import "./App.css";
 
@@ -46,7 +46,7 @@ const App = () => {
               setRegion={setRegion}
             />
           </MapProvider>
-          <ChartList region={region} onClick={setCountry} />
+          <List region={region} onClick={setCountry} />
         </Sidebar>
       </DataProvider>
     </Fullscreen>

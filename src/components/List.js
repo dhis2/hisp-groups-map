@@ -1,19 +1,22 @@
 import React, {
-  useRef,
+  useContext,
   useState,
+  useRef,
   useMemo,
   useCallback,
   useEffect,
 } from "react";
+import { DataContext } from "./DataProvider";
 import { regions } from "../utils/data";
 import "./List.css";
 
 const marginTop = 70;
 const marginBottom = 20;
 
-const List = ({ region, data, onClick }) => {
-  const container = useRef();
+const List = ({ region, onClick }) => {
+  const data = useContext(DataContext);
   const [cols, setCols] = useState(null);
+  const container = useRef();
 
   const legend = useMemo(
     () => regions.find((c) => c.id === region).legend,
@@ -57,51 +60,55 @@ const List = ({ region, data, onClick }) => {
   }, [onResize]);
 
   return (
-    <div id="list" ref={container} className="List List-show">
-      <div className="container">
-        {cols &&
-          lists &&
-          lists.map(({ name, color, symbol, items }, index) => {
-            const numCols = cols[index];
+    <div className="ChartList">
+      <div className="wrapper" style={{ top: 5 }}>
+        <div id="list" ref={container} className="List List-show">
+          <div className="container">
+            {cols &&
+              lists &&
+              lists.map(({ name, color, symbol, items }, index) => {
+                const numCols = cols[index];
 
-            return (
-              <div
-                key={name}
-                className="section"
-                style={{
-                  flexGrow: numCols,
-                  flexShrink: numCols,
-                }}
-              >
-                <h2>
-                  {color ? (
-                    <span
-                      className="color"
-                      style={{ backgroundColor: color }}
-                    ></span>
-                  ) : symbol ? (
-                    <span
-                      className="symbol"
-                      style={{ backgroundImage: `url("${symbol}.png")` }}
-                    ></span>
-                  ) : null}
-                  {name}
-                  {items.length > 1 ? <> ({items.length})</> : null}
-                </h2>
-                <ul
-                  style={{
-                    columnCount: numCols,
-                  }}
-                >
-                  {items.map((name) => (
-                    <li key={name} onClick={() => onClick(name)}>
+                return (
+                  <div
+                    key={name}
+                    className="section"
+                    style={{
+                      flexGrow: numCols,
+                      flexShrink: numCols,
+                    }}
+                  >
+                    <h2>
+                      {color ? (
+                        <span
+                          className="color"
+                          style={{ backgroundColor: color }}
+                        ></span>
+                      ) : symbol ? (
+                        <span
+                          className="symbol"
+                          style={{ backgroundImage: `url("${symbol}.png")` }}
+                        ></span>
+                      ) : null}
                       {name}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
+                      {items.length > 1 ? <> ({items.length})</> : null}
+                    </h2>
+                    <ul
+                      style={{
+                        columnCount: numCols,
+                      }}
+                    >
+                      {items.map((name) => (
+                        <li key={name} onClick={() => onClick(name)}>
+                          {name}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
       </div>
     </div>
   );

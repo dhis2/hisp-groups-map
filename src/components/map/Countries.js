@@ -56,12 +56,11 @@ const Countries = ({ region, selected, setCountry, setRegion }) => {
       const { countries } = data;
 
       layer.eachLayer((item) => {
-        const code = item.feature.properties.CODE;
+        const code = item.feature.properties.code;
         const country = countries.find((c) => c.code === code);
 
         if (country) {
-          // Use name from Google Spreadsheet
-          item.feature.properties.NAME = country.name;
+          item.feature.properties = country;
 
           item.setStyle({
             fillColor:
@@ -90,14 +89,21 @@ const Countries = ({ region, selected, setCountry, setRegion }) => {
     if (selected) {
       const selectedLayer = layer
         .getLayers()
-        .find((l) => l.feature.properties.NAME === selected);
+        .find((l) => l.feature.properties.name === selected);
 
       if (selectedLayer) {
         setLatlng(getIconPosition(selectedLayer.feature.geometry).reverse());
         setFeature(selectedLayer.feature.properties);
+      } else {
+        const group = data.groups.find((g) => g.name === selected);
+
+        if (group) {
+          setLatlng([group.latitude, group.longitude]);
+          setFeature(group);
+        }
       }
     }
-  }, [layer, selected]);
+  }, [layer, data, selected]);
 
   return (
     <>
@@ -110,7 +116,7 @@ const Countries = ({ region, selected, setCountry, setRegion }) => {
       {feature ? (
         <Popup
           region={region}
-          country={feature}
+          feature={feature}
           latlng={latlng}
           legend={legend}
           setCountry={setCountry}

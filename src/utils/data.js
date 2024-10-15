@@ -71,8 +71,7 @@ const parseData = ({ values }) => {
   const codex = cols.indexOf("Code");
   const namex = cols.indexOf("Name");
   const regionx = cols.indexOf("Region");
-  const groupx = cols.indexOf("Has HISP Group");
-  const hubx = cols.indexOf("Has HISP Hub");
+  const groupx = cols.indexOf("HISP Group");
   const supportedx = cols.indexOf("Supported by");
   const rows = values.slice(1);
 
@@ -81,7 +80,6 @@ const parseData = ({ values }) => {
     const name = row[namex];
     const region = row[regionx];
     const group = row[groupx] || null;
-    const hub = row[hubx] || null;
     const supportedBy = row[supportedx] || null;
 
     return {
@@ -89,7 +87,6 @@ const parseData = ({ values }) => {
       name,
       region,
       group,
-      hub,
       supportedBy,
     };
   });
@@ -102,31 +99,33 @@ const parseHispGroupData = ({ values }) => {
   const rows = values.slice(1);
   const groupx = cols.indexOf("HISP Group");
   const regionx = cols.indexOf("Region");
+  const officex = cols.indexOf("Office");
   const lngx = cols.indexOf("Longitude");
   const latx = cols.indexOf("Latitude");
-  const titlex = cols.indexOf("Title");
-  const bodyx = cols.indexOf("Body");
-  const imageurlx = cols.indexOf("Image url");
-  const imagelinkx = cols.indexOf("Image link");
-  const youtubeidx = cols.indexOf("YouTube ID");
-  const readmorelinkx = cols.indexOf("Read more link");
-  const byCountry = {};
+  const yearx = cols.indexOf("Established");
+  const websitex = cols.indexOf("Website");
+  const emailx = cols.indexOf("Email");
+  const logox = cols.indexOf("Logo");
 
   const groups = rows.map((row) => {
     const name = row[groupx];
     const region = row[regionx];
-    const title = row[titlex];
-    const body = row[bodyx];
-    const imageurl = row[imageurlx];
-    const imagelink = row[imagelinkx];
-    const youtubeid = row[youtubeidx];
-    const readmorelink = row[readmorelinkx];
+    const office = row[officex] || null;
+    const established = row[yearx] || null;
+    const website = row[websitex] || null;
+    const email = row[emailx] || null;
+    const logo = row[logox] || null;
     const longitude = row[lngx] ? Number(row[lngx]) : null;
     const latitude = row[latx] ? Number(row[latx]) : null;
 
     return {
       name,
       region,
+      office,
+      established,
+      website,
+      email,
+      logo,
       longitude,
       latitude,
     };
