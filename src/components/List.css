@@ -94,10 +94,13 @@
 .List li {
   list-style-type: none;
   line-height: 22px;
+}
+
+.List li:not(.no-click) {
   cursor: pointer;
 }
 
-.List li:hover {
+.List li:hover:not(.no-click) {
   text-decoration: underline;
 }
 

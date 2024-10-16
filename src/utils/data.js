@@ -17,7 +17,12 @@ export const regions = [
     legend: [
       { name: "Countries supported", type: "countries", color: "#999966" },
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
-      { name: "HISP hub", legendName: "HISP Africa hub", type: "hubs" },
+      {
+        name: "HISP hub",
+        legendName: "HISP Africa hub",
+        type: "hubs",
+        noClick: true,
+      },
     ],
   },
   {
@@ -27,7 +32,12 @@ export const regions = [
     legend: [
       { name: "Countries supported", type: "countries", color: "#edc44c" },
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
-      { name: "HISP hub", legendName: "HISP Asia hub", type: "hubs" },
+      {
+        name: "HISP hub",
+        legendName: "HISP Asia hub",
+        type: "hubs",
+        noClick: true,
+      },
     ],
   },
   {
