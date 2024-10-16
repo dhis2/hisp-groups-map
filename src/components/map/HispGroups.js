@@ -2,7 +2,6 @@ import { useContext, useEffect } from "react";
 import { geoJSON, marker, icon } from "leaflet";
 import { MapContext } from "./MapProvider";
 import { DataContext } from "../DataProvider";
-// import { getIconPosition } from "../../utils/map";
 
 const HispGroups = ({ region, onClick }) => {
   const map = useContext(MapContext);
@@ -31,8 +30,8 @@ const HispGroups = ({ region, onClick }) => {
         const markerOptions = {
           icon: icon({
             iconUrl: "map-pin.png",
-            iconSize: [24, 24],
-            iconAnchor: [12, 24],
+            iconSize: [34, 34],
+            iconAnchor: [17, 34],
           }),
         };
 
