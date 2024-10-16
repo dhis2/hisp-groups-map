@@ -15,7 +15,7 @@ import { getIconPosition } from "../../utils/map";
 
 const noDataColor = "#fff";
 
-const Countries = ({ region, selected, setCountry, setRegion }) => {
+const Countries = ({ region, selected, setCountry }) => {
   const countries = useContext(CountriesContext);
   const data = useContext(DataContext);
   const map = useContext(MapContext);
@@ -33,7 +33,6 @@ const Countries = ({ region, selected, setCountry, setRegion }) => {
       setFeature();
       setLatlng(latlng);
       setFeature(layer.feature.properties);
-      setCountry(); // Clear previously clicked country in list
     },
     [setCountry]
   );
@@ -105,6 +104,10 @@ const Countries = ({ region, selected, setCountry, setRegion }) => {
     }
   }, [layer, data, selected]);
 
+  useEffect(() => {
+    setFeature();
+  }, [region]);
+
   return (
     <>
       <HispGroups
@@ -113,17 +116,7 @@ const Countries = ({ region, selected, setCountry, setRegion }) => {
         legend={legend}
         onClick={onClick}
       />
-      {feature ? (
-        <Popup
-          region={region}
-          feature={feature}
-          latlng={latlng}
-          legend={legend}
-          setCountry={setCountry}
-          setRegion={setRegion}
-          onClose={() => setFeature()}
-        />
-      ) : null}
+      {feature ? <Popup feature={feature} latlng={latlng} /> : null}
     </>
   );
 };

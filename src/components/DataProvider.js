@@ -7,7 +7,6 @@ export const DataContext = createContext();
 const DataProvider = ({ children }) => {
   const [countries, setCountries] = useState();
   const [data, setData] = useState();
-  const [focus, setFocus] = useState();
 
   useEffect(() => {
     fetch("./countries.json")

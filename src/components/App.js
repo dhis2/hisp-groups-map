@@ -29,6 +29,7 @@ const App = () => {
   const [country, setCountry] = useState();
 
   useEffect(() => {
+    setCountry();
     window.location.hash = `#${region}`;
   }, [region]);
 
