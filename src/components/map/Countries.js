@@ -28,14 +28,11 @@ const Countries = ({ region, selected, setCountry }) => {
     [region]
   );
 
-  const onClick = useCallback(
-    ({ latlng, layer }) => {
-      setFeature();
-      setLatlng(latlng);
-      setFeature(layer.feature.properties);
-    },
-    [setCountry]
-  );
+  const onClick = useCallback(({ latlng, layer }) => {
+    setFeature();
+    setLatlng(latlng);
+    setFeature(layer.feature.properties);
+  }, []);
 
   useEffect(() => {
     if (countries) {

@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { popup } from "leaflet";
 import CountryPopup from "./CountryPopup";
