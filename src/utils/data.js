@@ -6,7 +6,12 @@ export const regions = [
     group: "explore",
     title: "Where does HISP work?",
     legend: [
-      { name: "All countries", type: "countries", color: "#dd898b" },
+      {
+        name: "All countries",
+        type: "countries",
+        color: "#dd898b",
+        dark: "#701010",
+      },
       { name: "All HISP groups", type: "groups", symbol: "map-pin" },
     ],
   },
@@ -15,7 +20,12 @@ export const regions = [
     group: "region",
     title: "Africa",
     legend: [
-      { name: "Countries supported", type: "countries", color: "#999966" },
+      {
+        name: "Countries supported",
+        type: "countries",
+        color: "#999966",
+        dark: "#164c36",
+      },
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
       {
         name: "HISP hub",
@@ -30,7 +40,12 @@ export const regions = [
     group: "region",
     title: "Asia",
     legend: [
-      { name: "Countries supported", type: "countries", color: "#edc44c" },
+      {
+        name: "Countries supported",
+        type: "countries",
+        color: "#edc44c",
+        dark: "#df592c",
+      },
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
       {
         name: "HISP hub",
@@ -45,7 +60,12 @@ export const regions = [
     group: "region",
     title: "Europe",
     legend: [
-      { name: "Countries supported", type: "countries", color: "#66ffcc" },
+      {
+        name: "Countries supported",
+        type: "countries",
+        color: "#66ffcc",
+        dark: "#2f3f93",
+      },
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
     ],
   },
@@ -54,7 +74,12 @@ export const regions = [
     group: "region",
     title: "Americas",
     legend: [
-      { name: "Countries supported", type: "countries", color: "#975ea7" },
+      {
+        name: "Countries supported",
+        type: "countries",
+        color: "#975ea7",
+        dark: "#41236d",
+      },
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
     ],
   },
@@ -63,7 +88,12 @@ export const regions = [
     group: "region",
     title: "Middle East",
     legend: [
-      { name: "Countries supported", type: "countries", color: "#f79868" },
+      {
+        name: "Countries supported",
+        type: "countries",
+        color: "#f79868",
+        dark: "#733624",
+      },
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
     ],
   },

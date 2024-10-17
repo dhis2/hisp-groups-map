@@ -62,7 +62,7 @@ const Countries = ({ region, selected, setCountry }) => {
             fillColor:
               region === "all" ||
               country.region.toLowerCase() === region.replace("-", " ")
-                ? legend.color
+                ? legend[country.group ? "dark" : "color"]
                 : noDataColor,
           });
         }
