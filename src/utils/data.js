@@ -31,7 +31,6 @@ export const regions = [
         name: "HISP hub",
         legendName: "HISP Africa hub",
         type: "hubs",
-        noClick: true,
       },
     ],
   },
@@ -51,7 +50,6 @@ export const regions = [
         name: "HISP hub",
         legendName: "HISP Asia hub",
         type: "hubs",
-        noClick: true,
       },
     ],
   },
@@ -175,17 +173,21 @@ const parseHispGroupData = ({ values }) => {
 };
 
 const parseHispHubData = ({ values }) => {
-  return values.map((row) => {
-    const name = row[0];
-    const region = row[1];
-    const longitude = row[2] ? Number(row[2]) : null;
-    const latitude = row[3] ? Number(row[3]) : null;
+  const cols = values[0];
+  const rows = values.slice(1);
+  const hubx = cols.indexOf("HISP hub");
+  const regionx = cols.indexOf("Region");
+  const websitex = cols.indexOf("Website");
+
+  return rows.map((row) => {
+    const name = row[hubx];
+    const region = row[regionx];
+    const website = row[websitex] || null;
 
     return {
       name,
       region,
-      longitude,
-      latitude,
+      website,
     };
   });
 };

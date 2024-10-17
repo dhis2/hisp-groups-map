@@ -7,6 +7,7 @@ import MapProvider from "./map/MapProvider";
 import Graticule from "./map/Graticule";
 import Countries from "./map/Countries";
 import List from "./List";
+import HubModal from "./HubModal";
 import { regions } from "../utils/data";
 import "./App.css";
 
@@ -23,6 +24,8 @@ const getInitialRegion = () => {
 
   return "all"; // Default region
 };
+
+const hubs = ["HISP Africa", "HISP Asia"];
 
 const App = () => {
   const [region, setRegion] = useState(getInitialRegion());
@@ -46,6 +49,9 @@ const App = () => {
               setCountry={setCountry}
               setRegion={setRegion}
             />
+            {hubs.includes(country) && (
+              <HubModal hub={country} setCountry={setCountry} />
+            )}
           </MapProvider>
           <List region={region} onClick={setCountry} />
         </Sidebar>

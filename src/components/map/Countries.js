@@ -15,7 +15,7 @@ import { getIconPosition } from "../../utils/map";
 
 const noDataColor = "#fff";
 
-const Countries = ({ region, selected, setCountry }) => {
+const Countries = ({ region, selected }) => {
   const countries = useContext(CountriesContext);
   const data = useContext(DataContext);
   const map = useContext(MapContext);
@@ -96,6 +96,8 @@ const Countries = ({ region, selected, setCountry }) => {
         if (group) {
           setLatlng([group.latitude, group.longitude]);
           setFeature(group);
+        } else {
+          setFeature();
         }
       }
     }

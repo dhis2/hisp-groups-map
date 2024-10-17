@@ -27,11 +27,10 @@ const List = ({ region, onClick }) => {
     if (legend && data) {
       setCols(null);
 
-      return legend.map(({ type, name, color, symbol, noClick }) => ({
+      return legend.map(({ type, name, color, symbol }) => ({
         name,
         color,
         symbol,
-        noClick,
         items: data[type]
           .filter(
             (country) =>
@@ -67,7 +66,7 @@ const List = ({ region, onClick }) => {
           <div className="container">
             {cols &&
               lists &&
-              lists.map(({ name, color, symbol, items, noClick }, index) => {
+              lists.map(({ name, color, symbol, items }, index) => {
                 const numCols = cols[index];
 
                 return (
@@ -100,11 +99,7 @@ const List = ({ region, onClick }) => {
                       }}
                     >
                       {items.map((name) => (
-                        <li
-                          className={noClick ? "no-click" : ""}
-                          key={name}
-                          onClick={noClick ? undefined : () => onClick(name)}
-                        >
+                        <li key={name} onClick={() => onClick(name)}>
                           {name}
                         </li>
                       ))}
