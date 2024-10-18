@@ -9,8 +9,8 @@ export const regions = [
       {
         name: "All countries",
         type: "countries",
-        color: "#dd898b",
-        dark: "#701010",
+        color: "#e0a5a8",
+        dark: "#c49094",
       },
       { name: "All HISP groups", type: "groups", symbol: "map-pin" },
     ],
@@ -23,8 +23,8 @@ export const regions = [
       {
         name: "Countries supported",
         type: "countries",
-        color: "#999966",
-        dark: "#164c36",
+        color: "#8cac5b",
+        dark: "#7d9951",
       },
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
       {
@@ -42,8 +42,8 @@ export const regions = [
       {
         name: "Countries supported",
         type: "countries",
-        color: "#edc44c",
-        dark: "#df592c",
+        color: "#edd179",
+        dark: "#ceb66a",
       },
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
       {
@@ -61,7 +61,7 @@ export const regions = [
       {
         name: "Countries supported",
         type: "countries",
-        color: "#66ffcc",
+        color: "#3d4ea0",
         dark: "#2f3f93",
       },
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
@@ -75,8 +75,8 @@ export const regions = [
       {
         name: "Countries supported",
         type: "countries",
-        color: "#975ea7",
-        dark: "#41236d",
+        color: "#c892c8",
+        dark: "#ae80aa",
       },
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
     ],
@@ -89,8 +89,8 @@ export const regions = [
       {
         name: "Countries supported",
         type: "countries",
-        color: "#f79868",
-        dark: "#733624",
+        color: "#f3b08d",
+        dark: "#d3997a",
       },
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
     ],
