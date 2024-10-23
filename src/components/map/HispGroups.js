@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { geoJSON, marker, icon } from "leaflet";
 import { MapContext } from "./MapProvider";
 import { DataContext } from "../DataProvider";
+import { isSameRegion } from "../../utils/data";
 
 const HispGroups = ({ region, onClick }) => {
   const map = useContext(MapContext);
@@ -12,8 +13,7 @@ const HispGroups = ({ region, onClick }) => {
       const features = data.groups
         .filter(
           (country) =>
-            (region === "all" ||
-              country.region.toLowerCase() === region.replace("-", " ")) &&
+            isSameRegion(country.region, region) &&
             country.latitude &&
             country.longitude
         )

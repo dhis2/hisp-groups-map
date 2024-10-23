@@ -8,8 +8,11 @@ import "./HubModal.css";
 const HubModal = ({ hub, setCountry }) => {
   const data = useContext(DataContext);
   const map = useContext(MapContext);
-  const { name, region, website } = data.hubs.find((c) => c.name === hub);
-  console.log("HubModal", hub, name, region, website);
+  const { name, region, website, logo, description } = data.hubs.find(
+    (c) => c.name === hub
+  );
+
+  console.log("HubModal", hub, name, region, website, logo, description);
 
   return createPortal(
     <div id="myModal" className="modal" onClick={() => setCountry()}>
@@ -17,6 +20,7 @@ const HubModal = ({ hub, setCountry }) => {
         <span className="close" onClick={() => setCountry()}>
           &times;
         </span>
+        {logo && <img src={logo} alt={name} />}
         <h2>{name}</h2>
         {website && (
           <a
@@ -27,6 +31,7 @@ const HubModal = ({ hub, setCountry }) => {
             {website}
           </a>
         )}
+        {description && <p>{description}</p>}
       </div>
     </div>,
     map.getContainer()

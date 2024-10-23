@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { DataContext } from "./DataProvider";
+import { isSameRegion } from "../utils/data";
 import "./Legend.css";
 
 const Legend = ({ region, items }) => {
@@ -8,10 +9,8 @@ const Legend = ({ region, items }) => {
   return (
     <div className="Legend">
       {items.map(({ type, name, legendName, color, symbol }) => {
-        const count = data?.[type].filter(
-          (country) =>
-            region === "all" ||
-            country.region.toLowerCase() === region.replace("-", " ")
+        const count = data?.[type].filter((country) =>
+          isSameRegion(country.region, region)
         ).length;
 
         return (

@@ -37,7 +37,7 @@ export const regions = [
   {
     id: "asia",
     group: "region",
-    title: "Asia",
+    title: "Asia & Middle East",
     legend: [
       {
         name: "Countries supported",
@@ -81,6 +81,7 @@ export const regions = [
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
     ],
   },
+  /*
   {
     id: "middle-east",
     group: "region",
@@ -95,6 +96,7 @@ export const regions = [
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
     ],
   },
+  */
 ];
 
 export const regionGroups = {
@@ -178,16 +180,22 @@ const parseHispHubData = ({ values }) => {
   const hubx = cols.indexOf("HISP hub");
   const regionx = cols.indexOf("Region");
   const websitex = cols.indexOf("Website");
+  const logox = cols.indexOf("Logo");
+  const descx = cols.indexOf("Description");
 
   return rows.map((row) => {
     const name = row[hubx];
     const region = row[regionx];
     const website = row[websitex] || null;
+    const logo = row[logox] || null;
+    const description = row[descx] || null;
 
     return {
       name,
       region,
       website,
+      logo,
+      description,
     };
   });
 };
@@ -204,3 +212,6 @@ export const getData = () =>
     fetchData("HISP groups").then(parseHispGroupData),
     fetchData("HISP hubs").then(parseHispHubData),
   ]).then(([countries, groups, hubs]) => ({ countries, groups, hubs }));
+
+export const isSameRegion = (sheetRegion, region) =>
+  region === "all" || sheetRegion.toLowerCase().includes(region);

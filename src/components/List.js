@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import { DataContext } from "./DataProvider";
 import { regions } from "../utils/data";
+import { isSameRegion } from "../utils/data";
 import "./List.css";
 
 const marginTop = 70;
@@ -32,11 +33,7 @@ const List = ({ region, onClick }) => {
         color,
         symbol,
         items: data[type]
-          .filter(
-            (country) =>
-              region === "all" ||
-              country.region.toLowerCase() === region.replace("-", " ")
-          )
+          .filter((country) => isSameRegion(country.region, region))
           .map((c) => c.name)
           .sort(),
       }));

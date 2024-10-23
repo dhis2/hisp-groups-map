@@ -10,7 +10,7 @@ import Popup from "./Popup";
 import { MapContext } from "./MapProvider";
 import HispGroups from "./HispGroups";
 import { CountriesContext, DataContext } from "../DataProvider";
-import { regions } from "../../utils/data";
+import { regions, isSameRegion } from "../../utils/data";
 import { getIconPosition } from "../../utils/map";
 
 const noDataColor = "#fff";
@@ -59,11 +59,9 @@ const Countries = ({ region, selected }) => {
           item.feature.properties = country;
 
           item.setStyle({
-            fillColor:
-              region === "all" ||
-              country.region.toLowerCase() === region.replace("-", " ")
-                ? legend[country.group ? "dark" : "color"]
-                : noDataColor,
+            fillColor: isSameRegion(country.region, region)
+              ? legend[country.group ? "dark" : "color"]
+              : noDataColor,
           });
         }
       });

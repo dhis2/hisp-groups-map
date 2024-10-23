@@ -17,7 +17,7 @@
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  width: 150px;
+  width: 170px;
   background-color: #fefefe;
   box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
   font-size: 14px;
@@ -27,6 +27,14 @@
 .modal-content h2 {
   margin: 0;
   font-size: 14px;
+}
+
+.modal-content img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 200px;
+  max-height: 100px;
 }
 
 /* The Close Button */
