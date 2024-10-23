@@ -12,8 +12,6 @@ const HubModal = ({ hub, setCountry }) => {
     (c) => c.name === hub
   );
 
-  console.log("HubModal", hub, name, region, website, logo, description);
-
   return createPortal(
     <div id="myModal" className="modal" onClick={() => setCountry()}>
       <div className="modal-content" onClick={(evt) => evt.stopPropagation()}>
