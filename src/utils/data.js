@@ -180,6 +180,7 @@ const parseHispHubData = ({ values }) => {
   const hubx = cols.indexOf("HISP hub");
   const regionx = cols.indexOf("Region");
   const websitex = cols.indexOf("Website");
+  const emailx = cols.indexOf("Email");
   const logox = cols.indexOf("Logo");
   const descx = cols.indexOf("Description");
 
@@ -187,6 +188,7 @@ const parseHispHubData = ({ values }) => {
     const name = row[hubx];
     const region = row[regionx];
     const website = row[websitex] || null;
+    const email = row[emailx] || null;
     const logo = row[logox] || null;
     const description = row[descx] || null;
 
@@ -194,6 +196,7 @@ const parseHispHubData = ({ values }) => {
       name,
       region,
       website,
+      email,
       logo,
       description,
     };

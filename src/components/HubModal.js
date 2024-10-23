@@ -8,7 +8,7 @@ import "./HubModal.css";
 const HubModal = ({ hub, setCountry }) => {
   const data = useContext(DataContext);
   const map = useContext(MapContext);
-  const { name, region, website, logo, description } = data.hubs.find(
+  const { name, website, email, logo, description } = data.hubs.find(
     (c) => c.name === hub
   );
 
@@ -30,6 +30,17 @@ const HubModal = ({ hub, setCountry }) => {
           </a>
         )}
         {description && <p>{description}</p>}
+        {email && (
+          <p>
+            <a
+              href={`mailto:${email}`}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Contact us
+            </a>
+          </p>
+        )}
       </div>
     </div>,
     map.getContainer()
