@@ -113,6 +113,7 @@ const parseData = ({ values }) => {
   const regionx = cols.indexOf("Region");
   const groupx = cols.indexOf("HISP Group");
   const supportedx = cols.indexOf("Supported by");
+  const emailx = cols.indexOf("Email");
   const rows = values.slice(1);
 
   const countries = rows.map((row) => {
@@ -120,6 +121,7 @@ const parseData = ({ values }) => {
     const name = row[namex];
     const region = row[regionx];
     const group = row[groupx] || null;
+    const email = row[emailx] || null;
     const supportedBy = row[supportedx] || null;
 
     return {
@@ -128,6 +130,7 @@ const parseData = ({ values }) => {
       region,
       group,
       supportedBy,
+      email,
     };
   });
 
