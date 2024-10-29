@@ -10,7 +10,6 @@ export const regions = [
         name: "All countries",
         type: "countries",
         color: "#e0a5a8",
-        dark: "#b38387",
       },
       { name: "All HISP groups", type: "groups", symbol: "map-pin" },
     ],
@@ -24,7 +23,6 @@ export const regions = [
         name: "Countries supported",
         type: "countries",
         color: "#8cac5b",
-        dark: "#78924b",
       },
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
       {
@@ -43,7 +41,6 @@ export const regions = [
         name: "Countries supported",
         type: "countries",
         color: "#edd179",
-        dark: "#bba760",
       },
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
       {
@@ -62,7 +59,6 @@ export const regions = [
         name: "Countries supported",
         type: "countries",
         color: "#3d5fb0",
-        dark: "#334b8a",
       },
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
     ],
@@ -76,27 +72,10 @@ export const regions = [
         name: "Countries supported",
         type: "countries",
         color: "#c892c8",
-        dark: "#9f769b",
       },
       { name: "HISP groups", type: "groups", symbol: "map-pin" },
     ],
   },
-  /*
-  {
-    id: "middle-east",
-    group: "region",
-    title: "Middle East",
-    legend: [
-      {
-        name: "Countries supported",
-        type: "countries",
-        color: "#f3b08d",
-        dark: "#c08c70",
-      },
-      { name: "HISP groups", type: "groups", symbol: "map-pin" },
-    ],
-  },
-  */
 ];
 
 export const regionGroups = {
