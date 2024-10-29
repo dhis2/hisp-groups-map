@@ -60,7 +60,7 @@ const Countries = ({ region, selected }) => {
 
           item.setStyle({
             fillColor: isSameRegion(country.region, region)
-              ? "color"
+              ? legend["color"]
               : noDataColor,
           });
         }
